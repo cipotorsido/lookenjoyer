@@ -1,118 +1,141 @@
-# AGATA - Agente de Gestão e Apoio Tecnológico à Agricultura
+
+# 👗 Fabio – Assistente de Moda Inteligente
 
 ![Versão](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-> "Conectando campos, eliminando desperdícios: Nenhum agricultor familiar sem mercado, nenhuma colheita perdida."
->
+> “O look certo para a ocasião certa: estilo, conforto e confiança com a ajuda da IA.”
 
-Acesso online: [family-agro-chat-agricultor](https://agata-agent-service-573130108685.us-central1.run.app/docs/)
+📄 Acesso à documentação: _em breve_
+
+---
 
 ## 📋 Sobre o Projeto
 
-AGATA é uma solução digital que conecta agricultores familiares com prefeituras e o CONAB através de uma assistente virtual via WhatsApp. Utilizando IA generativa, a AGATA facilita o registro de produtos não vendidos nas feiras, comunica ofertas, eliminando o desperdício e aumentando a renda dos produtores rurais.
+**Fabio** é um sistema conversacional com IA generativa, desenvolvido para ajudar pessoas a escolherem roupas apropriadas para diferentes ocasiões.  
+A interação ocorre de forma natural via **WhatsApp**, utilizando uma linguagem amigável, leve e personalizada.
 
-### 🌱 O Problema
+A solução foca em combinar o estilo pessoal do usuário com o contexto do evento, levando em conta dados como local, tipo de ambiente, estilo musical e preferências individuais.
 
-Em regiões como Tangará da Serra (MT), aproximadamente 40% da produção agrícola familiar é desperdiçada por falta de canais de escoamento após as feiras. 
-Ao mesmo tempo, prefeituras e o CONAB têm interesse em adquirir esses produtos, mas não possuem informações sobre disponibilidade.
+---
+
+### 🎯 O Problema
+
+Muitas pessoas têm dificuldade em escolher o que vestir para determinados eventos, como festas, shows, encontros ou ambientes profissionais. Isso gera insegurança, atrasos e até desconforto.
+
+Ao mesmo tempo, as soluções atuais de moda são genéricas, sem considerar o contexto real ou o estilo de quem está pedindo ajuda.
+
+---
 
 ### 💡 Nossa Solução
 
-A FamilyAgro, através da AGATA, resolve este problema criando um canal direto entre produção e demanda, usando uma tecnologia já familiar aos agricultores: o WhatsApp.
+A **Fabio** resolve isso oferecendo sugestões personalizadas de looks, com base em:
+- Dados do usuário (idade, corpo, estilo pessoal)
+- Contexto do evento (local, música, ambiente, horário, clima)
 
-## 🤖 Arquitetura de Agentes
+Tudo isso via uma plataforma acessível e familiar: o **WhatsApp**.
 
-A ÁGATA utiliza uma arquitetura multi-agente especializada:
+---
 
-1. **Agent Root: AGATA** - Orquestrador principal que mantém a personalidade e contexto da conversa
+## 🧠 Arquitetura de Agentes
 
-2. **Sub-Agents Especialistas:**
-   - **StockCollector** - Extrai dados precisos sobre produtos disponíveis
-   - **DealPresenter** - Comunica propostas de compra detalhadamente
-   - **SaleConfirmer** - Processa aceites, ajustes ou recusas
-   - **DeliveryTracker** - Gerencia logística e feedback pós-venda
+Fabio utiliza uma arquitetura multiagente com orquestração via **Google Agent Development Kit (ADK)**.
+
+### 1. Agente Raiz: `Fabio`
+Orquestrador principal que conduz o diálogo com o usuário e aciona agentes especialistas conforme o fluxo da conversa.
+
+### 2. Subagentes Especialistas
+- **UserProfileAgent** – Coleta informações do perfil pessoal do usuário  
+- **EventContextAgent** – Recolhe dados do evento ou ocasião  
+- **LookRecommenderAgent** – Gera sugestões personalizadas de roupas  
+- **FeedbackAgent** – Coleta feedback para melhoria contínua
+
+---
 
 ## 🔄 Fluxos de Conversação
 
-### Fluxo 1: Coleta de Dados do Produto
-Captura detalhes sobre produtos disponíveis para venda, incluindo:
-- Nome e variedade do produto
-- Quantidade disponível
-- Unidade de medida
-- Prazo de validade
-- Preço unitário
-- Características especiais
+### Fluxo 1: Coleta de Perfil do Usuário
+- Nome e idade
+- Sexo/gênero
+- Tipo corporal
+- Estilo pessoal (casual, ousado, confortável, etc.)
 
-### Fluxo 2: Comunicação de Proposta
-Informa o agricultor sobre interesse de compra e apresenta detalhes:
-- Comprador interessado
-- Produtos solicitados com quantidades
-- Preços unitários e total
-- Informações logísticas
+### Fluxo 2: Entendimento do Evento
+- Tipo de evento (festa, churrasco, casamento, entrevista)
+- Local e ambiente (grama, terra, piso, salão)
+- Estilo musical predominante
+- Clima e horário
 
-### Fluxo 3: Confirmação e Aceite
-Obtém e processa a confirmação do agricultor:
-- Aceites completos
-- Aceites parciais com ajustes
-- Recusas e motivos
+### Fluxo 3: Recomendação de Look
+Gera uma sugestão personalizada com:
+- Combinação de peças
+- Justificativa da escolha
+- Alternativas, se desejado
 
-### Fluxo 4: Logística e Pós-Venda
-Acompanha o processo de coleta e feedback:
-- Lembretes de coleta
-- Verificação pós-coleta
-- Avaliação de satisfação
+### Fluxo 4: Feedback e Ajustes
+- Reações, ajustes ou novos pedidos
+- Registro de preferências futuras
+
+---
 
 ## 💾 Modelo de Dados
 
-O projeto utiliza MongoDB para armazenamento, com as seguintes coleções principais:
+Estrutura recomendada (MongoDB, PostgreSQL ou Firebase):
 
-- **farmers**: Dados dos agricultores familiares
-- **products**: Estoque disponível para venda
-- **orders**: Pedidos e transações
-- **conversations**: Histórico conversacional
+- **users**: Perfil do usuário
+- **events**: Contexto da ocasião
+- **looks**: Sugestões geradas e feedbacks
+- **conversations**: Histórico da interação
+
+---
 
 ## 📱 Integração e Funcionalidades MVP
 
-- **Interface web para comunicacao por chat**: Testes para validacao em desenvolvimento
-- **MongoDB**: Armazenamento em banco de dados NoSQL
-- **Agent Development Kit (Google)**: Framework para desenvolvimento dos agentes de IA
+- Integração com **WhatsApp API (Meta)** ou **Twilio**
+- Orquestração com **Google Agent Development Kit (ADK)**
+- IA generativa com **OpenAI GPT-4** (ou similar)
+- Banco de dados estruturado para perfis/contextos
+
+---
 
 ## 🚀 Como Começar
 
 ### Pré-requisitos
 
-- Python 3.9+
-- MongoDB 5.0+
-- API_KEY openAI
+- Python 3.10+
+- MongoDB ou Firebase
+- Conta no WhatsApp Business (Meta) ou Twilio
+- API Key OpenAI
 
 ### Instalação
 
 ```bash
 # Clone o repositório
-[git clone https://github.com/sua-org/agata-assistant.git](https://github.com/devsergioramos/family-agro-chat-agricultor)
-cd family-agro-chat-agricultor
+git clone https://github.com/seu-usuario/Fabio-assistant.git
+cd Fabio-assistant
 
 # Instale as dependências
 pip install -r requirements.txt
 
 # Configure as variáveis de ambiente
 cp .env.example .env
-# Edite o arquivo .env com suas credenciais
+# Edite o .env com suas chaves do OpenAI e credenciais do WhatsApp
 
-# Inicie o servidor
+# Rode o servidor de chat
 make chat
 ```
 
+---
+
 ## 📊 Métricas de Sucesso
 
-- **Redução de desperdício**: % da produção aproveitada
-- **Aumento de renda**: Incremento na renda dos agricultores
-- **Adoção**: Número de agricultores usando ativamente
-- **Satisfação**: NPS dos agricultores e compradores
-- **Volume**: Quantidade de produtos comercializados
+- **Satisfação**: Avaliações positivas dos looks sugeridos  
+- **Retenção**: Quantos usuários retornam  
+- **Tempo de resposta**: Agilidade no atendimento  
+- **Diversidade**: Ocasiões e estilos atendidos  
+- **Feedbacks**: Comentários úteis para melhoria
 
 ---
 
 <p align="center">
-  <i>Conectando os que produzem aos que precisam comprar.</i>
+  <i>"Ajudando você a se vestir bem para viver melhor."</i>
 </p>
